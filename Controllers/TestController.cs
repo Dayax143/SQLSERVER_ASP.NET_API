@@ -27,5 +27,47 @@ namespace WebApplication2.Controllers
             var items = _dbHelper.GetTestItems();
             return Ok(items);
         }
+
+        [HttpPost]
+        public IActionResult Insert()
+        {
+            try
+            {
+                _dbHelper.insertData();
+                return Ok("Data inserted successfully.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpDelete]
+        public IActionResult Delete()
+        {
+            try
+            {
+                _dbHelper.deleteData();
+                return Ok("Data deleted successfully.");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPut]
+        public IActionResult Update()
+        {
+            try
+            {
+                _dbHelper.updateData();
+                return Ok("Data updated successfully.");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
