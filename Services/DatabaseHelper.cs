@@ -22,7 +22,7 @@ namespace WebApplication2.Services
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                var command = new SqlCommand("SELECT name, quantity, last_update FROM test", connection);
+                var command = new SqlCommand("SELECT name, quantity, last_update,audit_user FROM test", connection);
                 var reader = command.ExecuteReader();
 
                 while (reader.Read())
@@ -33,8 +33,9 @@ namespace WebApplication2.Services
                         Quantity = reader["quantity"] == DBNull.Value ? 0 : Convert.ToInt32(reader["quantity"]),
                         last_update = reader["last_update"] == DBNull.Value
     ? DateTime.MinValue
-    : Convert.ToDateTime(reader["last_update"])
-                    });
+    : Convert.ToDateTime(reader["last_update"]),
+                        audit_user = reader["audit_user"] == DBNull.Value ? null : reader["audit_user"].ToString()
+					});
                 }
             }
 
@@ -68,7 +69,7 @@ namespace WebApplication2.Services
                 using (var connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
-                    var command = new SqlCommand("insert into test (name,quantity,last_update) values('manually',7,'" + DateTime.Now + "')", connection);
+                    var command = new SqlCommand("insert into test (name,quantity,last_update,audit_user) values('manually',7,'" + DateTime.Now + "','default')", connection);
                     command.ExecuteNonQuery();
                 }
             }

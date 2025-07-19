@@ -1,0 +1,23 @@
+﻿@model List<WebApplication2.Models.Test>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Last Update</th>
+            <th>Audit User</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Quantity</td>
+                <td>@item.last_update</td>
+                <td>@item.audit_user</td>
+            </tr>
+        }
+    </tbody>
+</table>
